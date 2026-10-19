@@ -1,0 +1,342 @@
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: #5a1030;
+  background: linear-gradient(165deg, #ffe6ee 0%, #ffd3e2 38%, #fcd1ec 68%, #ecd6ff 100%);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Background ---------- */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, .85) 0, rgba(255, 255, 255, 0) 42%),
+    radial-gradient(circle at 12% 18%, rgba(255, 171, 145, .45) 0, rgba(255, 171, 145, 0) 30%),
+    radial-gradient(circle at 88% 22%, rgba(206, 147, 216, .45) 0, rgba(206, 147, 216, 0) 32%),
+    radial-gradient(circle at 80% 88%, rgba(255, 128, 171, .35) 0, rgba(255, 128, 171, 0) 34%),
+    radial-gradient(circle at 15% 85%, rgba(255, 213, 79, .25) 0, rgba(255, 213, 79, 0) 30%);
+}
+
+.petals, .hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.petals { z-index: 1; }
+.hearts { z-index: 40; }
+
+.petal {
+  position: absolute;
+  top: -40px;
+  width: var(--size);
+  height: var(--size);
+  background: var(--color);
+  border-radius: 150% 0 150% 0;
+  opacity: .85;
+  animation: fall var(--dur) linear var(--delay) infinite;
+}
+
+@keyframes fall {
+  0%   { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+  50%  { transform: translate3d(var(--drift), 50vh, 0) rotate(200deg); }
+  100% { transform: translate3d(0, 110vh, 0) rotate(400deg); }
+}
+
+/* ---------- Layout ---------- */
+.stage {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(14px, env(safe-area-inset-top)) 16px max(14px, env(safe-area-inset-bottom));
+}
+
+.greeting { text-align: center; }
+
+.eyebrow {
+  font-size: clamp(11px, 3.2vw, 15px);
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #ad1457;
+}
+
+.date {
+  font-family: 'Dancing Script', 'Brush Script MT', cursive;
+  font-weight: 700;
+  font-size: clamp(56px, 16vw, 104px);
+  line-height: 1.05;
+  background: linear-gradient(90deg, #d81b60 0%, #ff4f7b 45%, #ff8a3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 6px rgba(173, 20, 87, .22));
+}
+.date span { margin: 0 .04em; }
+
+.to {
+  font-family: 'Dancing Script', 'Brush Script MT', cursive;
+  font-weight: 700;
+  font-size: clamp(24px, 6.4vw, 34px);
+  color: #880e4f;
+  line-height: 1.1;
+}
+.beat {
+  display: inline-block;
+  color: #e91e63;
+  animation: beat 1.4s ease-in-out infinite;
+}
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.18); }
+}
+
+.bouquet-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: 560px;
+  cursor: pointer;
+  outline: none;
+}
+.bouquet-wrap:focus-visible { box-shadow: 0 0 0 3px rgba(233, 30, 99, .45); border-radius: 24px; }
+
+#bouquet {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 12px 18px rgba(136, 14, 79, .22));
+  transform-origin: 50% 96%;
+  animation: sway 7s ease-in-out 4.6s infinite;
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.3deg); }
+  75% { transform: rotate(1.3deg); }
+}
+
+.sparkles { position: absolute; inset: 0; pointer-events: none; }
+.spark {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  background: radial-gradient(circle, #fff 0, #fff7c2 30%, rgba(255, 236, 160, 0) 70%);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  animation: twinkle var(--dur) ease-in-out var(--delay) infinite;
+  opacity: 0;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding-top: 6px;
+}
+
+.wish {
+  max-width: 34ch;
+  font-size: clamp(14px, 3.8vw, 17px);
+  line-height: 1.5;
+  color: #6d1b3b;
+}
+
+.btn {
+  font: 600 16px 'Be Vietnam Pro', system-ui, sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg, #ff5c8a 0%, #e91e63 55%, #c2185b 100%);
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 28px;
+  box-shadow: 0 8px 22px rgba(233, 30, 99, .38), inset 0 1px 0 rgba(255, 255, 255, .35);
+  cursor: pointer;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+.btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.hint { font-size: 12.5px; color: #8e3a5b; opacity: .8; }
+
+/* ---------- Bouquet entrance (SVG) ---------- */
+.bloom {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bloom 1.1s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+.bloom.from-base { transform-origin: 50% 100%; }
+@keyframes bloom {
+  from { transform: scale(0) rotate(-50deg); opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.stem {
+  stroke-dasharray: 1;
+  animation: draw 1.3s ease-out both;
+}
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.rise {
+  animation: rise 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(40px); }
+}
+
+.pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pop .8s cubic-bezier(.34, 1.56, .64, 1) 3.2s both;
+}
+@keyframes pop {
+  from { opacity: 0; transform: scale(0); }
+}
+
+.greeting.anim { animation: fadeDown 1s ease-out .2s both; }
+.actions.anim { animation: fadeUp 1s ease-out 3.6s both; }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
+
+/* ---------- Hearts ---------- */
+.heart {
+  position: absolute;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 2px 6px rgba(194, 24, 91, .25);
+  animation: fly var(--t) cubic-bezier(.15, .7, .3, 1) forwards;
+}
+@keyframes fly {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(var(--sc)) rotate(var(--rot)); }
+}
+
+/* ---------- Letter ---------- */
+.letter {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(90, 16, 48, .32);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  animation: fadeIn .35s ease-out both;
+}
+@keyframes fadeIn { from { opacity: 0; } }
+
+.letter-card {
+  position: relative;
+  width: min(92vw, 470px);
+  max-height: 86vh;
+  max-height: 86svh;
+  overflow-y: auto;
+  padding: 30px 24px 26px;
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 31px, rgba(233, 30, 99, .09) 31px 32px),
+    linear-gradient(160deg, #fffaf4 0%, #fff1f5 100%);
+  box-shadow: 0 24px 60px rgba(90, 16, 48, .35), inset 0 0 0 1px rgba(233, 30, 99, .12);
+  font-family: 'Dancing Script', 'Brush Script MT', cursive;
+  color: #4a0d28;
+  animation: cardIn .55s cubic-bezier(.34, 1.4, .64, 1) both;
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(30px) scale(.92); } }
+
+.letter-card h2 {
+  font-size: clamp(25px, 6.6vw, 30px);
+  line-height: 1.2;
+  color: #c2185b;
+  margin: 0 28px 10px 0;
+}
+.letter-body {
+  white-space: pre-line;
+  font-size: clamp(20px, 5.4vw, 23px);
+  line-height: 32px;
+  min-height: 4em;
+}
+.letter-body.typing::after {
+  content: '|';
+  color: #e91e63;
+  animation: blink .8s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.sign {
+  margin-top: 14px;
+  text-align: right;
+  font-size: 22px;
+  line-height: 1.4;
+  opacity: 0;
+  transition: opacity .8s ease;
+}
+.sign strong { font-size: 28px; color: #c2185b; }
+.sign.show { opacity: 1; }
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(233, 30, 99, .1);
+  color: #c2185b;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+.close:focus-visible { outline: 2px solid #e91e63; }
+
+/* ---------- Landscape phones ---------- */
+@media (orientation: landscape) and (max-height: 520px) {
+  .stage { flex-direction: row; justify-content: center; gap: 12px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+  .greeting, .actions { flex: 0 1 30%; }
+  .bouquet-wrap { flex: 1 1 40%; height: 100%; }
+  .date { font-size: clamp(44px, 12vh, 72px); }
+  .hint { display: none; }
+}
+
+/* ---------- ?final & reduced motion: show end state ---------- */
+.final .bloom, .final .stem, .final .rise, .final .pop, .final .anim,
+.reduced .bloom, .reduced .stem, .reduced .rise, .reduced .pop, .reduced .anim {
+  animation: none !important;
+}
+.final #bouquet { animation-delay: 0s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #bouquet, .beat, .btn, .spark, .petal { animation: none !important; }
+  .petals, .sparkles { display: none; }
+  .heart { animation-duration: .9s !important; }
+}
