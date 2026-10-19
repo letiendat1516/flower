@@ -2,21 +2,22 @@
  *  💐 CẤU HÌNH — chỉ cần sửa phần này để đổi tên và lời nhắn
  * ===================================================================== */
 const CONFIG = {
-  recipient: 'Em yêu',   // Tên / cách gọi người nhận
-  sender: 'Anh',         // Tên người gửi (ký cuối thư)
+  recipient: 'Eo Eo',   // Tên / cách gọi người nhận
+  sender: 'Lợn Béo',         // Tên người gửi (ký cuối thư)
 
   // Lời chúc ngắn hiện dưới bó hoa
-  wish: 'Chúc em luôn xinh đẹp, rạng rỡ và hạnh phúc như những đóa hoa này.',
+  wish: 'Chúc Eo Eo luôn xinh đẹp, rạng rỡ và hạnh phúc như những đóa hoa này.',
 
   // Tiêu đề và nội dung lá thư (mỗi phần tử là một đoạn)
-  letterTitle: 'Gửi em, người con gái anh thương',
+  letterTitle: 'Gửi Eo Eo của anh,',
   letter: [
-    'Chúc mừng ngày Phụ nữ Việt Nam 20/10, em nhé!',
-    'Cảm ơn em đã đến bên anh, mang theo nụ cười làm những ngày bình thường của anh trở nên dịu dàng hơn.',
-    'Anh không giỏi nói lời hoa mỹ, nên gửi em bó hoa này — mỗi bông là một điều anh mong cho em: luôn khỏe mạnh, luôn vui vẻ và luôn được yêu thương thật nhiều.',
-    'Hôm nay và cả những ngày sau này, em vẫn luôn là đóa hoa đẹp nhất của anh.'
+    'Hôm nay là 20/10. Ở nhà, phố phường đang rực rỡ hoa tươi, ai cũng tất bật mang hoa về tặng người mình thương.',
+    'Anh cũng muốn được như thế — tự tay ôm một bó hoa thật to, đứng đợi em, rồi lặng ngắm nụ cười của em lúc nhận hoa. Nhưng em đang ở tận bên Nhật, cách anh cả nghìn cây số và hai tiếng lệch múi giờ, nên năm nay anh đành gửi em bó hoa điện tử này vậy.',
+    'Bó hoa này không có hương thơm, cũng chẳng thể cầm trên tay. Nhưng nó sẽ không bao giờ héo — giống như tình cảm Lợn Béo dành cho Eo Eo.',
+    'Ở nơi xa ấy, em nhớ ăn uống đầy đủ, mặc thật ấm khi trời trở lạnh, và đừng cố quá sức nhé. Những lúc mệt mỏi hay nhớ nhà, cứ mở trang này ra và chạm vào bó hoa — mỗi trái tim bay lên là một lần anh đang nhớ em đấy.',
+    'Chúc em một ngày 20/10 thật vui, thật xinh và thật hạnh phúc. Đợi em về, anh sẽ bù cho em một bó hoa thật — kèm theo một cái ôm thật chặt.'
   ],
-  signOff: 'Thương em thật nhiều,'
+  signOff: 'Nhớ em nhiều lắm,'
 };
 
 (function () {
@@ -329,6 +330,7 @@ const CONFIG = {
 
   // ---------- Letter ----------
   var letter = document.getElementById('letter');
+  var card = letter.querySelector('.letter-card');
   var body = document.getElementById('letterBody');
   var sign = document.getElementById('letterSign');
   var openBtn = document.getElementById('openLetter');
@@ -354,8 +356,9 @@ const CONFIG = {
     (function step() {
       i++;
       body.textContent = fullText.slice(0, i);
+      card.scrollTop = card.scrollHeight;
       if (i >= fullText.length) { finishTyping(); return; }
-      typingTimer = setTimeout(step, fullText.charAt(i - 1) === '\n' ? 160 : 34);
+      typingTimer = setTimeout(step, fullText.charAt(i - 1) === '\n' ? 160 : 28);
     })();
   }
 
